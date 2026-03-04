@@ -1,8 +1,14 @@
 package com.thawanlc.mini_ecommerce.entity;
 
+import java.math.BigDecimal;
+
+import com.thawanlc.mini_ecommerce.entity.enums.FormaPagamento;
 import com.thawanlc.mini_ecommerce.entity.enums.PedidoEnum;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,10 +40,18 @@ public class Pedido {
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
+    @Column(nullable = false)
     private int quantidade;
 
-    private String formaPagamento;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private FormaPagamento formaPagamento;
 
+    private BigDecimal total;
+    private BigDecimal desconto = BigDecimal.ZERO;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PedidoEnum pedidoEnum;
 
 

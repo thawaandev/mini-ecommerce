@@ -1,6 +1,5 @@
 package com.thawanlc.mini_ecommerce.entity;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -31,7 +30,8 @@ public class Cliente {
     @Column(nullable = false)
     private String nome;
 
-    private BigDecimal desconto;
+    @Column(nullable = false)
+    private Double saldo;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> listaPedidos;

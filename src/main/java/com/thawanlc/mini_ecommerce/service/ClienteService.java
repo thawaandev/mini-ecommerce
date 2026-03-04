@@ -1,5 +1,7 @@
 package com.thawanlc.mini_ecommerce.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,16 @@ public class ClienteService {
 
         Cliente criarCliente = new Cliente();
         criarCliente.setNome(cliente.getNome());
-        criarCliente.setDesconto(cliente.getDesconto());
         return clienteRepository.saveAndFlush(criarCliente);
 
+    }
+
+    public List<Cliente> listarClientes() {
+        return clienteRepository.findAll();
+    }
+
+    public void deletarCliente(Long id) {
+        clienteRepository.deleteById(id);
     }
 
 
