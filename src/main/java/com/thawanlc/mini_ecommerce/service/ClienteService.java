@@ -18,6 +18,7 @@ public class ClienteService {
 
         Cliente criarCliente = new Cliente();
         criarCliente.setNome(cliente.getNome());
+        criarCliente.setSaldo(cliente.getSaldo());
         return clienteRepository.saveAndFlush(criarCliente);
 
     }

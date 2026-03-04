@@ -2,6 +2,7 @@ package com.thawanlc.mini_ecommerce.entity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.thawanlc.mini_ecommerce.entity.enums.FormaPagamento;
 import com.thawanlc.mini_ecommerce.entity.enums.PedidoEnum;
 
@@ -34,10 +35,12 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
+    @JsonBackReference
     private Produto produto;
 
     @Column(nullable = false)
