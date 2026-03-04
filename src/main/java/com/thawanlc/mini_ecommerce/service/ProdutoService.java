@@ -37,7 +37,7 @@ public class ProdutoService {
         }
 
         if(listaProdutos == null) {
-            throw new NullPointerException("Produto Nullo");
+            throw new NullPointerException("Não existe produto nessa tabela");
         }
 
         String nomeLower = nome.toLowerCase();

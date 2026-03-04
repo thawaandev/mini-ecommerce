@@ -47,7 +47,7 @@ public class ProdutoController {
             }
 
             if(nome == null || nome.isBlank() || nome.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nome produto não encontrado" + nome);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sem conteúdo" + nome);
             }
 
             return ResponseEntity.status(HttpStatus.FOUND).body(produtos);
