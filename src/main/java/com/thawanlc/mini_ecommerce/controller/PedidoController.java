@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thawanlc.mini_ecommerce.dto.PedidoRequest;
+import com.thawanlc.mini_ecommerce.dto.PedidoResponse;
 import com.thawanlc.mini_ecommerce.entity.Pedido;
 import com.thawanlc.mini_ecommerce.service.PedidoService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class PedidoController {
     }
 
     @GetMapping
-    public List<Pedido> listarPedidos() {
+    public List<PedidoResponse> listarPedidos() {
         return pedidoService.listarPedidos();
     }
 

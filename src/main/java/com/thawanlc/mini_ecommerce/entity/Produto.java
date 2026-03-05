@@ -1,5 +1,7 @@
 package com.thawanlc.mini_ecommerce.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +29,13 @@ public class Produto {
     private String nome;
 
     @Column(nullable = false)
-    private Double preco;
+    private BigDecimal preco;
 
     @Column(nullable = false, unique = true)
     private int quantidadeEstoque;
+
+    public BigDecimal calcularTotal(int quantidade) {
+        BigDecimal total = preco.multiply(BigDecimal.valueOf(quantidade));
+        return total;
+    }
 }

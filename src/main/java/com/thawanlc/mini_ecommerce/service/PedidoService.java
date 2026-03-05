@@ -1,5 +1,6 @@
 package com.thawanlc.mini_ecommerce.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class PedidoService {
             throw new NullPointerException("Algum dado está nullo");
         }
 
+
         Cliente cliente = clienteRepository.findById(request.clienteId()).orElseThrow(
             () -> new RuntimeException("Cliente não encontrado"));
 
@@ -43,12 +45,17 @@ public class PedidoService {
             () -> new RuntimeException("Produto não encontrado")
         );
 
+        if(request.quantidade() > produto.getQuantidadeEstoque()) {
+            throw new RuntimeException("Saldo de estoque insuficiente " + produto.getQuantidadeEstoque());
+        }
+
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         pedido.setProduto(produto);
         pedido.setQuantidade(request.quantidade());
         pedido.setFormaPagamento(request.formaPagamento());
-        pedido.setTotal(null);
+        BigDecimal total = produto.calcularTotal(request.quantidade());
+        pedido.setTotal(total);
         pedido.setDesconto(request.desconto());
         pedido.setPedidoEnum(PedidoEnum.PENDENTE);
         pedidoRepository.saveAndFlush(pedido);
@@ -56,15 +63,11 @@ public class PedidoService {
         return PedidoMapper.toResponse(pedido);
     }
 
-    public List<Pedido> listarPedidos() {
-        return pedidoRepository.findAll();
-    }
-
     public List<Pedido> filtrarPorCliente(String nome) {
         List<Pedido> cliente = clienteRepository.findByNome(nome);
         
         if(nome == null || nome.isBlank()) {
-            throw new NullPointerException("Nome não existente:");
+            throw new NullPointerException("Campo nulo.");
         }
 
         if(cliente == null || cliente.isEmpty()) {
@@ -77,6 +80,14 @@ public class PedidoService {
         .filter(c -> c.getCliente().getNome().toLowerCase().startsWith(nomeLower))
         .collect(Collectors.toList());
 
+    }
+
+    public List<PedidoResponse> listarPedidos() {
+        
+        List<Pedido> listaPedido = pedidoRepository.findAll();
+
+        List<PedidoResponse> lista = PedidoMapper.toDto(listaPedido);
+        return lista;
     }
 
 
